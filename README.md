@@ -1,2 +1,2 @@
-# target-myretail-restful-service
- Target Case study on Restful API's
+# My Retail Restful Service
+
