@@ -13,6 +13,6 @@ import com.target.casestudy.model.Products;
 @Repository("productsRepository")
 public interface ProductsRepository extends MongoRepository<Products, Long> {
 
-	Products findById(String id);
+	Products findById(long id);
 
 }

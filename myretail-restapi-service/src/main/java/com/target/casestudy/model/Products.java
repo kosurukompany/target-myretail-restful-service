@@ -1,11 +1,9 @@
 package com.target.casestudy.model;
 
-import java.util.Set;
-
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.mongodb.lang.NonNull;
 
 /**
  * @author Satya Kosuru
@@ -16,18 +14,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Products {
 
 	@Id
-	@NotEmpty
-	private String id;
+	@NonNull
+	private long id;
 
 	private String name;
 
-	private Set<CurrentPrices> current_price;
+	private CurrentPrices current_price;
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -39,11 +37,11 @@ public class Products {
 		this.name = name;
 	}
 
-	public Set<CurrentPrices> getCurrent_price() {
+	public CurrentPrices getCurrent_price() {
 		return current_price;
 	}
 
-	public void setCurrent_price(Set<CurrentPrices> current_price) {
+	public void setCurrent_price(CurrentPrices current_price) {
 		this.current_price = current_price;
 	}
 

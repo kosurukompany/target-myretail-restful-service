@@ -1,5 +1,7 @@
 package com.target.casestudy.service;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,11 @@ public class ProductsService {
 		this.productsRepository = productsRepository;
 	}
 
-	public Products findById(String id) {
+	public Products findById(long id) {
 		return productsRepository.findById(id);
 	}
 
+	public Products saveProduct(@Valid Products product) {
+		return productsRepository.save(product);
+	}
 }
