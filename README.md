@@ -10,8 +10,8 @@ Spring Boot -- 2.2.5.RELEASE
 Spring Framework -- 5.2.4.RELEASE
 MongoDB -- 2.2.5.RELEASE
 Maven -- 3.6.1
-Swagger2 -- 3.0.0-SNAPSHOT
-Swagger-ui -- 3.0.0-SNAPSHOT
+Swagger2 -- 2.9.2
+Swagger-ui -- 2.9.2
 Junit -- 5(Jupitor)
 IDE -- Eclipse
 
@@ -70,7 +70,7 @@ Application is up and tunning on default port or port defined in /src/main/resou
 
 ## API Documentation
 ```
-	Please refer to Swagger at {host}/myretailapi-swagger.html
+	Please refer to Swagger at {host}/swagger-ui.html (ex http://localhost:8088/swagger-ui.html)
 ```
 ## Testing
 ```
