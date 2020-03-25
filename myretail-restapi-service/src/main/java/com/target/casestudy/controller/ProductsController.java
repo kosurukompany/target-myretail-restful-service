@@ -81,7 +81,7 @@ public class ProductsController {
 	}
 
 	@GetMapping(value = Constants.EXTERNAL_GET_URL, produces = Constants.APPLICATION_JSON)
-	public String getProductFromExtrenalAPI(@PathVariable(required = true) long id) throws URISyntaxException {
+	public String getExtrenalProductName(@PathVariable(required = true) long id) throws URISyntaxException {
 
 		String productName = null;
 
