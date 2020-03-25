@@ -8,6 +8,12 @@ public class Constants {
 
 	public static final String APP_NAME = "My Retail Restfull Services";
 
+	public static final String AUTHOR_NAME = "Satya Kumar Kosuru";
+	public static final String AUTHOR_EMAIL = "kosurusatya@gmail.com";
+	public static final String AUTHOR_WEBSITE = "";
+	public static final String MIT = "MIT";
+	public static final String LICENSE_URL = "https://github.com/kosurukompany/target-myretail-restful-service/blob/master/LICENSE";
+
 	public static final String ERROR = "[API REQUEST ERROR]:";
 	public static final String SUCCESS = "[API REQUEST SUCCESS]:";
 
@@ -27,11 +33,17 @@ public class Constants {
 	public static final String SWAGGER_TITLE = "Target My Retail Rest API Case Study Documentation";
 	public static final String SWAGGER_DESCRIPTION = "Here you will find all the detailed methods and details about all rest API calls for target myretail restapi service case study";
 	public static final String SWAGGER_API_VERSION = "1.0";
+	public static final String SWAGGER_PARAM_DES_CONDITION = "If condition = nameonly then the response will contain product name only. If left balnk or given anything else it will return the combiled product from extrenal api data(id and name) and data from database(current_price)";
+	public static final String SWAGGER_PARAM_DES_PRODUCT = "Valid Product data in JSON format is required";
+	public static final String SWAGGER_PARAM_DES_ID = "Valid Product Id is required. Example product IDs: 13860428, 15117729, 16483589, 16696652, 16752456, 15643793 ";
 
 	public static final String EXTERNAL_PRODUCT = "product";
+	public static final String EXTERNAL_TCIN = "tcin";
 	public static final String EXTERNAL_ITEM = "item";
 	public static final String EXTERNAL_PRODUCT_DESCRIPTION = "product_description";
 	public static final String EXTERNAL_TITLE = "title";
+	public static final String EXTERNAL_API_CONDITION = "condition";
+	public static final String EXTERNAL_API_CONDITION_OPTION = "nameonly";
 
 	public static final String SLASH = "/";
 
@@ -43,18 +55,30 @@ public class Constants {
 	public static final String STATUS = "Status";
 	public static final String MESSAGE = "Message";
 
-	public static final String RESPONSE_CODE_200 = "200";
-	public static final String RESPONSE_CODE_201 = "201";
-	public static final String RESPONSE_CODE_400 = "400";
-	public static final String RESPONSE_CODE_403 = "403";
-	public static final String RESPONSE_CODE_404 = "404";
+	public static final int RESPONSE_CODE_200 = 200;
+	public static final int RESPONSE_CODE_201 = 201;
+	public static final int RESPONSE_CODE_204 = 204;
+	public static final int RESPONSE_CODE_400 = 400;
+	public static final int RESPONSE_CODE_401 = 401;
+	public static final int RESPONSE_CODE_403 = 403;
+	public static final int RESPONSE_CODE_404 = 404;
 
+	public static final String RESPONSE_CODE_200_DES = "Request Is Successfull";
+	public static final String RESPONSE_CODE_201_DES = "Product Craeted Successfully";
+	public static final String RESPONSE_CODE_204_DES = "No Content Available";
+	public static final String RESPONSE_CODE_400_DES = "Product Id's Mis-Match. Bad Request";
+	public static final String RESPONSE_CODE_401_DES = "User Not Authorized To Make The Request";
+	public static final String RESPONSE_CODE_403_DES = "Product Is Already Exists. Buplicates Forbidden";
+	public static final String RESPONSE_CODE_404_DES = "Requested Product Not Found";
+
+	public static final String PRODUCT_MESSAGE_SIZE = "Products list returned with size: ";
 	public static final String PRODUCT_MESSAGE_EXISTS = "Product already exist with Id: ";
 	public static final String PRODUCT_MESSAGE_CREATED = "Product Successfully created with Id: ";
 	public static final String PRODUCT_MESSAGE_UPDATED = "Product Successfully updated with Id: ";
 	public static final String PRODUCT_MESSAGE_DELETED = "Product Successfully deleted with Id: ";
 	public static final String PRODUCT_MESSAGE_FOUND = "Requested Product found with Id: ";
 	public static final String PRODUCT_MESSAGE_NOT_FOUND = "Product is not found with the requested Id: ";
+	public static final String PRODUCT_MESSAGE_NO_PRODUCTS = "There are no products in the system";
 	public static final String PRODUCT_MESSAGE_ID_MISMATCH_PART_1 = "Requested Product Id = ";
 	public static final String PRODUCT_MESSAGE_ID_MISMATCH_PART_2 = ", is not match with Id in body data = ";
 

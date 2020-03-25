@@ -1,6 +1,13 @@
-# My Retail Restful Service
+# My Retail Restful Service(Target case study)
 
-Target case study -- Restful API services for a retail to send JSON response to GET request and send a GET resquest and recieve JSON respose. Also when PUT method requested update the product price data.
+ ##This project contain following functionalities
+
+ Restful API services to send JSON response for GET request and send a GET resquest to external api and recieve JSON respose and return name of the peoduct. When PUT method requested update the product price data.
+
+In addition to that you can perform POST request to add one product at a time and DELETE request to delete a existing product.
+
+ALso there is a GET method to get all products form database. This might helpful for manual testing to see what exists in database and what not.
+
 
 ## Tools and Technologies Used
 
@@ -68,9 +75,23 @@ Application is up and tunning on default port or port defined in /src/main/resou
 ```
 Application is up and tunning on default port or port defined in /src/main/resources/instance-based.properties.
 
-## API Documentation
+## API Documentation(/v1/myretail/products)
 ```
-	Please refer to Swagger at {host}/swagger-ui.html (ex http://localhost:8088/swagger-ui.html)
+	GET(/v1/myretail/products) -- return complete list of products from database
+
+	GET(/v1/myretail/products/{id}) -- return requested product from database based on ID
+
+	GET(/v1/myretail/products/external/{id}) -- return requested product combined from external API data(id and name) and data from database(current_price) based on ID
+
+	GET(/v1/myretail/products/external/{id}?condition=nameonly) -- return requested product name from external API data based on ID
+
+	POST(/v1/myretail/products/add) -- Add a new product to database
+
+	PUT(/v1/myretail/products/{id}) -- Required valid product data in JSON format. This method update the existing product price
+
+	DELETE(/v1/myretail/products/{id}) -- Delete the existing product
+
+	For more detailed explanation on API methods please refer to Swagger documentation at {host}/swagger-ui.html (ex http://localhost:8088/swagger-ui.html)
 ```
 ## Testing
 ```

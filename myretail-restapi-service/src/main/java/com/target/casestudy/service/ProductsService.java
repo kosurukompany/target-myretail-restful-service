@@ -1,6 +1,7 @@
 package com.target.casestudy.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -24,6 +25,10 @@ public class ProductsService {
 	@Autowired
 	public ProductsService(ProductsRepository productsRepository) {
 		this.productsRepository = productsRepository;
+	}
+
+	public List<Products> findAll() {
+		return productsRepository.findAll();
 	}
 
 	public Products findById(long id) {

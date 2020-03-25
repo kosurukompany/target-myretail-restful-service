@@ -2,7 +2,9 @@ package com.target.casestudy.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -26,11 +29,17 @@ import com.target.casestudy.common.Constants;
 import com.target.casestudy.model.Products;
 import com.target.casestudy.service.ProductsService;
 
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * @author Satya Kosuru
  *
  */
 
+@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_200, message = Constants.RESPONSE_CODE_200_DES),
+		@ApiResponse(code = Constants.RESPONSE_CODE_401, message = Constants.RESPONSE_CODE_401_DES) })
 @RestController
 @RequestMapping(value = Constants.PRODUCTS_URL)
 public class ProductsController {
@@ -40,8 +49,48 @@ public class ProductsController {
 	@Autowired
 	ProductsService productsService;
 
+	/**
+	 * 
+	 * Get all Products
+	 * Response time in Postman 30ms
+	 * @return Product list (or) JSON Response
+	 * 
+	 */
+	@ApiResponses(value = {
+			@ApiResponse(code = Constants.RESPONSE_CODE_204, message = Constants.RESPONSE_CODE_204_DES) })
+
+	@GetMapping(produces = Constants.APPLICATION_JSON)
+	public Object getAllProducts() {
+
+		final List<Products> productsList = productsService.findAll();
+
+		if (productsList.size() != 0) {
+
+			_log.info(Constants.SUCCESS + Constants.PRODUCT_MESSAGE_SIZE + productsList.size());
+			return productsList;
+
+		} else {
+
+			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_NO_PRODUCTS);
+			return httpResponse(Constants.RESPONSE_CODE_204, HttpStatus.NO_CONTENT,
+					Constants.PRODUCT_MESSAGE_NO_PRODUCTS);
+		}
+	}
+
+	/**
+	 * 
+	 * Add a new product
+	 * Response time in Postman 34ms
+	 * @param Valid product
+	 * @return Success/Fail JSON Response
+	 * 
+	 */
+
+	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_201, message = Constants.RESPONSE_CODE_201_DES),
+			@ApiResponse(code = Constants.RESPONSE_CODE_403, message = Constants.RESPONSE_CODE_403_DES) })
 	@PostMapping(value = Constants.POST_URL, produces = Constants.APPLICATION_JSON, consumes = Constants.APPLICATION_JSON)
-	public String postProduct(@RequestBody @Valid Products product) {
+	public String addProduct(
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product) {
 
 		if (productsService.findById(product.getId()) == null) {
 
@@ -59,8 +108,23 @@ public class ProductsController {
 		}
 	}
 
+	/**
+	 * 
+	 * Get a product
+	 * Response time in Postman 9ms
+	 * @param id
+	 * @return On success return requested product (or) sends product not found
+	 *         response
+	 * 
+	 * 
+	 */
+
+	@ApiResponses(value = {
+			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
+
 	@GetMapping(value = Constants.PATH_VARIABLE_ID, produces = Constants.APPLICATION_JSON)
-	public Object getProduct(@PathVariable(required = true) long id) {
+	public Object getProduct(
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
 
 		final Products existingProduct = productsService.findById(id);
 
@@ -80,8 +144,26 @@ public class ProductsController {
 
 	}
 
+	/**
+	 * 
+	 * Get a product  from external API Given in the case
+	 * study(https://redsky.target.com)
+	 * Response time in Postman 27ms,33ms
+	 * @param id
+	 * @throws URISyntaxException
+	 * @return If condition=nameonly then returns the name of the product otherwise
+	 *         its returns the combined id and name from external API and price data
+	 *         from database (or) sends product not found response
+	 * 
+	 */
+
+	@ApiResponses(value = {
+			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
 	@GetMapping(value = Constants.EXTERNAL_GET_URL, produces = Constants.APPLICATION_JSON)
-	public String getExtrenalProductName(@PathVariable(required = true) long id) throws URISyntaxException {
+	public Object getExternalProduct(
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id,
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_CONDITION) @RequestParam(value = "condition", required = false) String condition,
+			HttpServletRequest req) throws URISyntaxException {
 
 		String productName = null;
 
@@ -91,13 +173,32 @@ public class ProductsController {
 		try {
 
 			final ResponseEntity<String> externalResponse = rest.getForEntity(uri, String.class);
+
 			final JSONObject json = new JSONObject(externalResponse.getBody());
+
 			productName = json.getJSONObject(Constants.EXTERNAL_PRODUCT).getJSONObject(Constants.EXTERNAL_ITEM)
 					.getJSONObject(Constants.EXTERNAL_PRODUCT_DESCRIPTION).getString(Constants.EXTERNAL_TITLE);
 
 			_log.info(Constants.SUCCESS + Constants.PRODUCT_MESSAGE_FOUND + id);
 
-			return productName;
+			if (req.getParameterMap().containsKey(Constants.EXTERNAL_API_CONDITION.toLowerCase())
+					&& req.getParameter(Constants.EXTERNAL_API_CONDITION.toLowerCase())
+							.equals(Constants.EXTERNAL_API_CONDITION_OPTION.toLowerCase())) {
+
+				final JSONObject productNameJson = new JSONObject();
+				productNameJson.put(Constants.EXTERNAL_TITLE.toUpperCase(), productName);
+
+				return productNameJson.toString();
+
+			} else {
+
+				final Products product = productsService.findById(id);
+				product.setId(Long.parseLong(json.getJSONObject(Constants.EXTERNAL_PRODUCT)
+						.getJSONObject(Constants.EXTERNAL_ITEM).getString(Constants.EXTERNAL_TCIN)));
+				product.setName(productName);
+
+				return product;
+			}
 
 		} catch (final Exception e) {
 
@@ -109,9 +210,22 @@ public class ProductsController {
 
 	}
 
+	/**
+	 * 
+	 * This PUT method only update the pricing of requested product.
+	 * Response time in Postman 12ms
+	 * @param Valid product
+	 * @return Success/Fail JSON Response
+	 * 
+	 */
+
+	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_200, message = Constants.RESPONSE_CODE_200_DES),
+			@ApiResponse(code = Constants.RESPONSE_CODE_400, message = Constants.RESPONSE_CODE_400_DES) })
+
 	@PutMapping(value = Constants.PATH_VARIABLE_ID, produces = Constants.APPLICATION_JSON, consumes = Constants.APPLICATION_JSON)
-	public @ResponseBody String updateProduct(@RequestBody @Valid Products product,
-			@PathVariable(required = true) long id) {
+	public @ResponseBody String updateProductPriceData(
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product,
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
 
 		final Products existingProduct = productsService.findById(id);
 
@@ -138,8 +252,21 @@ public class ProductsController {
 
 	}
 
+	/**
+	 * 
+	 * This DELETE method delete the requested product.
+	 * Response time in Postman 9ms
+	 * @param id
+	 * @return Success/Fail JSON Response
+	 * 
+	 */
+
+	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_200, message = Constants.RESPONSE_CODE_200_DES),
+			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
+
 	@DeleteMapping(value = Constants.PATH_VARIABLE_ID, produces = Constants.APPLICATION_JSON)
-	public Object deleteProduct(@PathVariable(required = true) long id) {
+	public Object deleteProduct(
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
 
 		final Products existingProduct = productsService.findById(id);
 
@@ -160,7 +287,7 @@ public class ProductsController {
 		}
 	}
 
-	private String httpResponse(String code, HttpStatus status, String message) {
+	private String httpResponse(int code, HttpStatus status, String message) {
 
 		final JSONObject httpResponse = new JSONObject();
 
