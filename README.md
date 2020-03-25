@@ -45,11 +45,11 @@ IDE -- Eclipse
 	[Install]
 	WantedBy=multi-user.target
 
-	sudo systemctl enable sso.service       // Enable the service
-	sudo systemctl start sso.service         // start the service
-	sudo systemctl stop sso.service         // stop the service
-	sudo systemctl restart sso.service    // restart the service
-	sudo systemctl status sso.service    // will give the status 
+	sudo systemctl enable myretailAPI.service       // Enable the service
+	sudo systemctl start myretailAPI.service         // start the service
+	sudo systemctl stop myretailAPI.service         // stop the service
+	sudo systemctl restart myretailAPI.service    // restart the service
+	sudo systemctl status myretailAPI.service    // will give the status 
 
 ```
 Application is up and tunning on default port or port defined in /src/main/resources/instance-based.properties.
