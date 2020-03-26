@@ -1,12 +1,12 @@
 # My Retail Restful Service(Target case study)
 
- ##This project contain following functionalities
+ This project contain following functionalities:
 
  Restful API services to send JSON response for GET request and send a GET resquest to external api and recieve JSON respose and return name of the peoduct. When PUT method requested update the product price data.
 
 In addition to that you can perform POST request to add one product at a time and DELETE request to delete a existing product.
 
-ALso there is a GET method to get all products form database. This might helpful for manual testing to see what exists in database and what not.
+Also there is a GET method to get all products form database. This might helpful for manual testing to see what exists in database and what not.
 
 
 ## Tools and Technologies Used
@@ -21,6 +21,7 @@ Swagger2 -- 2.9.2
 Swagger-ui -- 2.9.2
 Junit -- 5(Jupitor)
 IDE -- Eclipse
+Postman -- For manual testing
 
 ```
 
