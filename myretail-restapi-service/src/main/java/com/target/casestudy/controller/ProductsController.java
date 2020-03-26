@@ -41,25 +41,25 @@ import io.swagger.annotations.ApiResponses;
 @ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_200, message = Constants.RESPONSE_CODE_200_DES),
 		@ApiResponse(code = Constants.RESPONSE_CODE_401, message = Constants.RESPONSE_CODE_401_DES) })
 @RestController
-@RequestMapping(value = Constants.PRODUCTS_URL)
+@RequestMapping(value = Constants.PRODUCTS_URL, produces = Constants.APPLICATION_JSON)
 public class ProductsController {
 
 	private static Log _log = LogFactory.getLog(ProductsController.class.getName());
 
 	@Autowired
-	ProductsService productsService;
+	private ProductsService productsService;
 
 	/**
 	 * 
-	 * Get all Products
-	 * Response time in Postman 30ms
+	 * Get all Products (Response time in Postman 30ms)
+	 * 
 	 * @return Product list (or) JSON Response
 	 * 
 	 */
 	@ApiResponses(value = {
 			@ApiResponse(code = Constants.RESPONSE_CODE_204, message = Constants.RESPONSE_CODE_204_DES) })
 
-	@GetMapping(produces = Constants.APPLICATION_JSON)
+	@GetMapping()
 	public Object getAllProducts() {
 
 		final List<Products> productsList = productsService.findAll();
@@ -79,8 +79,8 @@ public class ProductsController {
 
 	/**
 	 * 
-	 * Add a new product
-	 * Response time in Postman 34ms
+	 * Add a new product (Response time in Postman 34ms)
+	 * 
 	 * @param Valid product
 	 * @return Success/Fail JSON Response
 	 * 
@@ -88,7 +88,7 @@ public class ProductsController {
 
 	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_201, message = Constants.RESPONSE_CODE_201_DES),
 			@ApiResponse(code = Constants.RESPONSE_CODE_403, message = Constants.RESPONSE_CODE_403_DES) })
-	@PostMapping(value = Constants.POST_URL, produces = Constants.APPLICATION_JSON, consumes = Constants.APPLICATION_JSON)
+	@PostMapping(value = Constants.POST_URL, consumes = Constants.APPLICATION_JSON)
 	public String addProduct(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product) {
 
@@ -110,8 +110,8 @@ public class ProductsController {
 
 	/**
 	 * 
-	 * Get a product
-	 * Response time in Postman 9ms
+	 * Get a product (Response time in Postman 9ms)
+	 * 
 	 * @param id
 	 * @return On success return requested product (or) sends product not found
 	 *         response
@@ -122,7 +122,7 @@ public class ProductsController {
 	@ApiResponses(value = {
 			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
 
-	@GetMapping(value = Constants.PATH_VARIABLE_ID, produces = Constants.APPLICATION_JSON)
+	@GetMapping(value = Constants.PATH_VARIABLE_ID)
 	public Object getProduct(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
 
@@ -146,9 +146,9 @@ public class ProductsController {
 
 	/**
 	 * 
-	 * Get a product  from external API Given in the case
-	 * study(https://redsky.target.com)
-	 * Response time in Postman 27ms,33ms
+	 * Get a product from external API Given in the case
+	 * study(https://redsky.target.com) (Response time in Postman 27ms,33ms)
+	 * 
 	 * @param id
 	 * @throws URISyntaxException
 	 * @return If condition=nameonly then returns the name of the product otherwise
@@ -159,7 +159,7 @@ public class ProductsController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
-	@GetMapping(value = Constants.EXTERNAL_GET_URL, produces = Constants.APPLICATION_JSON)
+	@GetMapping(value = Constants.EXTERNAL_GET_URL)
 	public Object getExternalProduct(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id,
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_CONDITION) @RequestParam(value = "condition", required = false) String condition,
@@ -212,8 +212,9 @@ public class ProductsController {
 
 	/**
 	 * 
-	 * This PUT method only update the pricing of requested product.
-	 * Response time in Postman 12ms
+	 * This PUT method only update the pricing of requested product. (Response time
+	 * in Postman 12ms)
+	 * 
 	 * @param Valid product
 	 * @return Success/Fail JSON Response
 	 * 
@@ -222,7 +223,7 @@ public class ProductsController {
 	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_200, message = Constants.RESPONSE_CODE_200_DES),
 			@ApiResponse(code = Constants.RESPONSE_CODE_400, message = Constants.RESPONSE_CODE_400_DES) })
 
-	@PutMapping(value = Constants.PATH_VARIABLE_ID, produces = Constants.APPLICATION_JSON, consumes = Constants.APPLICATION_JSON)
+	@PutMapping(value = Constants.PATH_VARIABLE_ID, consumes = Constants.APPLICATION_JSON)
 	public @ResponseBody String updateProductPriceData(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product,
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
@@ -254,8 +255,9 @@ public class ProductsController {
 
 	/**
 	 * 
-	 * This DELETE method delete the requested product.
-	 * Response time in Postman 9ms
+	 * This DELETE method delete the requested product. (Response time in Postman
+	 * 9ms)
+	 * 
 	 * @param id
 	 * @return Success/Fail JSON Response
 	 * 
@@ -264,7 +266,7 @@ public class ProductsController {
 	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_200, message = Constants.RESPONSE_CODE_200_DES),
 			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
 
-	@DeleteMapping(value = Constants.PATH_VARIABLE_ID, produces = Constants.APPLICATION_JSON)
+	@DeleteMapping(value = Constants.PATH_VARIABLE_ID)
 	public Object deleteProduct(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
 
