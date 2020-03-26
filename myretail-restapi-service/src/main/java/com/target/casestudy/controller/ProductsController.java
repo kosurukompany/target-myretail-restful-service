@@ -88,7 +88,7 @@ public class ProductsController {
 
 	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_201, message = Constants.RESPONSE_CODE_201_DES),
 			@ApiResponse(code = Constants.RESPONSE_CODE_403, message = Constants.RESPONSE_CODE_403_DES) })
-	@PostMapping(value = Constants.POST_URL, consumes = Constants.APPLICATION_JSON)
+	@PostMapping(value = Constants.ADD_URL, consumes = Constants.APPLICATION_JSON)
 	public String addProduct(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product) {
 

@@ -21,7 +21,7 @@ class MyretailRestapiServiceApplicationTests {
 	@Autowired
 	private ProductsController productsController;
 
-	@DisplayName(Constants.UNIT_TEST_CASE_NAME_CONTROLLERS)
+	@DisplayName(Constants.UNIT_TEST_CASE_NAME_CONTEXT_LOAD)
 	@Test
 	public void contextLoads() throws Exception {
 
