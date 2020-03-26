@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.target.casestudy.common.Constants;
 import com.target.casestudy.model.CurrentPrices;
 import com.target.casestudy.model.Products;
 import com.target.casestudy.repository.ProductsRepository;
@@ -35,9 +36,9 @@ public class ProductsServiceTest {
 	@InjectMocks
 	private ProductsService productsService;
 
-	@DisplayName("Test for save product method")
+	@DisplayName(Constants.UNIT_TEST_CASE_NAME_SAVE_PRODUCT)
 	@Test
-	public void saveProductTest() {
+	public void saveProductTest() throws Exception {
 
 		final String[][] data = getDataSet();
 
@@ -52,9 +53,9 @@ public class ProductsServiceTest {
 
 	}
 
-	@DisplayName("Test for delete product method")
+	@DisplayName(Constants.UNIT_TEST_CASE_NAME_DELETE_PRODUCT)
 	@Test
-	public void deleteProductTest() {
+	public void deleteProductTest() throws Exception {
 
 		final String[][] data = getDataSet();
 
@@ -70,9 +71,9 @@ public class ProductsServiceTest {
 		}
 	}
 
-	@DisplayName("Test for get all products method")
+	@DisplayName(Constants.UNIT_TEST_CASE_NAME_GET_ALL_PRODUCTS)
 	@Test
-	public void findAllProductsTest() {
+	public void findAllProductsTest() throws Exception {
 
 		final String[][] data = getDataSet();
 		final List<Products> addProducts = new ArrayList<>();
@@ -93,9 +94,9 @@ public class ProductsServiceTest {
 
 	}
 
-	@DisplayName("Test for get find product by ID method")
+	@DisplayName(Constants.UNIT_TEST_CASE_NAME_GET_PRODUCT_BY_ID)
 	@Test
-	public void findProductByIdTest() {
+	public void findProductByIdTest() throws Exception {
 
 		final String[][] data = getDataSet();
 

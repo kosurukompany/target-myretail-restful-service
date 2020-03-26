@@ -82,4 +82,10 @@ public class Constants {
 	public static final String PRODUCT_MESSAGE_ID_MISMATCH_PART_1 = "Requested Product Id = ";
 	public static final String PRODUCT_MESSAGE_ID_MISMATCH_PART_2 = ", is not match with Id in body data = ";
 
+	public static final String UNIT_TEST_CASE_NAME_CONTROLLERS = "Test for Controllers Null Check";
+	public static final String UNIT_TEST_CASE_NAME_SAVE_PRODUCT = "Test for Save Product";
+	public static final String UNIT_TEST_CASE_NAME_DELETE_PRODUCT = "Test for Delete Product";
+	public static final String UNIT_TEST_CASE_NAME_GET_ALL_PRODUCTS = "Test for Get All Products";
+	public static final String UNIT_TEST_CASE_NAME_GET_PRODUCT_BY_ID = "Test for Get Product by ID";
+
 }
