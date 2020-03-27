@@ -124,7 +124,7 @@ public class ProductsController {
 
 	@GetMapping(value = Constants.PATH_VARIABLE_ID)
 	public Object getProduct(
-			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable() long id) {
 
 		final Products existingProduct = productsService.findById(id);
 
@@ -161,8 +161,8 @@ public class ProductsController {
 			@ApiResponse(code = Constants.RESPONSE_CODE_404, message = Constants.RESPONSE_CODE_404_DES) })
 	@GetMapping(value = Constants.EXTERNAL_GET_URL)
 	public Object getExternalProduct(
-			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id,
-			@ApiParam(value = Constants.SWAGGER_PARAM_DES_CONDITION) @RequestParam(value = "condition", required = false) String condition,
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable() long id,
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_CONDITION) @RequestParam(required = false) String condition,
 			HttpServletRequest req) throws URISyntaxException {
 
 		String productName = null;
@@ -226,7 +226,7 @@ public class ProductsController {
 	@PutMapping(value = Constants.PATH_VARIABLE_ID, consumes = Constants.APPLICATION_JSON)
 	public @ResponseBody String updateProductPriceData(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product,
-			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable() long id) {
 
 		final Products existingProduct = productsService.findById(id);
 
@@ -268,7 +268,7 @@ public class ProductsController {
 
 	@DeleteMapping(value = Constants.PATH_VARIABLE_ID)
 	public Object deleteProduct(
-			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable(required = true) long id) {
+			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable() long id) {
 
 		final Products existingProduct = productsService.findById(id);
 

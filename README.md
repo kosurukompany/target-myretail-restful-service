@@ -20,6 +20,7 @@ Maven -- 3.6.1
 Swagger2 -- 2.9.2
 Swagger-ui -- 2.9.2
 Junit -- 5(Jupitor)
+Mockito -- 3.3.0
 IDE -- Eclipse
 Postman -- For manual testing
 
@@ -96,7 +97,9 @@ Application is up and tunning on default port or port defined in /src/main/resou
 ```
 ## Testing
 ```
-	Please refer installation and setup steps to find different procedures to run the test cases. You can find the test cases in `src/test/java/{tests}`.
+	Please refer installation and setup steps to find different procedures to run the test cases. You can find the test cases in `src/test/java/{tests}`. 
+
+	FYI... In both installation and setup when maven install run the controller test cases run automatically.
 ```
 
 ## License
