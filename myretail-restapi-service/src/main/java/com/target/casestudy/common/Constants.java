@@ -58,6 +58,7 @@ public class Constants {
 
 	public static final String ASTERISK = "*";
 
+	public static final String TIMESTAMP = "timestamp";
 	public static final String CODE = "Code";
 	public static final String STATUS = "Status";
 	public static final String MESSAGE = "Message";
@@ -79,8 +80,8 @@ public class Constants {
 	public static final String RESPONSE_CODE_404_DES = "Requested Product Not Found";
 
 	public static final String PRODUCT_MESSAGE_SIZE = "Products list returned with size: ";
-	public static final String PRODUCT_MESSAGE_EXISTS = "Product already exist with Id: ";
-	public static final String PRODUCT_MESSAGE_CREATED = "Product Successfully created with Id: ";
+	public static final String PRODUCT_MESSAGE_EXISTS = "Product already exist and duplicates are not allowed";
+	public static final String PRODUCT_MESSAGE_CREATED = "Product is Successfully Created";
 	public static final String PRODUCT_MESSAGE_UPDATED = "Product Successfully updated with Id: ";
 	public static final String PRODUCT_MESSAGE_DELETED = "Product Successfully deleted with Id: ";
 	public static final String PRODUCT_MESSAGE_FOUND = "Requested Product found with Id: ";

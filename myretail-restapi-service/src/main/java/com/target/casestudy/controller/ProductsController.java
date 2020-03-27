@@ -1,10 +1,13 @@
 package com.target.casestudy.controller;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -54,13 +57,14 @@ public class ProductsController {
 	 * Get all Products (Response time in Postman 30ms)
 	 * 
 	 * @return Product list (or) JSON Response
+	 * @throws IOException
 	 * 
 	 */
 	@ApiResponses(value = {
 			@ApiResponse(code = Constants.RESPONSE_CODE_204, message = Constants.RESPONSE_CODE_204_DES) })
 
 	@GetMapping()
-	public Object getAllProducts() {
+	public Object getAllProducts(HttpServletResponse response) throws IOException {
 
 		final List<Products> productsList = productsService.findAll();
 
@@ -72,8 +76,9 @@ public class ProductsController {
 		} else {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_NO_PRODUCTS);
-			return httpResponse(Constants.RESPONSE_CODE_204, HttpStatus.NO_CONTENT,
-					Constants.PRODUCT_MESSAGE_NO_PRODUCTS);
+
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+
 		}
 	}
 
@@ -89,7 +94,7 @@ public class ProductsController {
 	@ApiResponses(value = { @ApiResponse(code = Constants.RESPONSE_CODE_201, message = Constants.RESPONSE_CODE_201_DES),
 			@ApiResponse(code = Constants.RESPONSE_CODE_403, message = Constants.RESPONSE_CODE_403_DES) })
 	@PostMapping(value = Constants.ADD_URL, consumes = Constants.APPLICATION_JSON)
-	public String addProduct(
+	public Object addProduct(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product) {
 
 		if (productsService.findById(product.getId()) == null) {
@@ -97,14 +102,18 @@ public class ProductsController {
 			final Products newProduct = productsService.saveProduct(product);
 
 			_log.info(Constants.SUCCESS + Constants.PRODUCT_MESSAGE_CREATED + newProduct.getId());
-			return httpResponse(Constants.RESPONSE_CODE_201, HttpStatus.CREATED,
-					Constants.PRODUCT_MESSAGE_CREATED + newProduct.getId());
+
+			return new ResponseEntity<>(
+					customResponse(HttpStatus.CREATED, Constants.PRODUCT_MESSAGE_CREATED + newProduct.getId()),
+					HttpStatus.CREATED);
 
 		} else {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_EXISTS + product.getId());
-			return httpResponse(Constants.RESPONSE_CODE_403, HttpStatus.FORBIDDEN,
-					Constants.PRODUCT_MESSAGE_EXISTS + product.getId());
+
+			return new ResponseEntity<>(
+					customResponse(HttpStatus.FORBIDDEN, Constants.PRODUCT_MESSAGE_EXISTS + product.getId()),
+					HttpStatus.FORBIDDEN);
 		}
 	}
 
@@ -137,8 +146,8 @@ public class ProductsController {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
 
-			return httpResponse(Constants.RESPONSE_CODE_404, HttpStatus.NOT_FOUND,
-					Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
+			return new ResponseEntity<>(customResponse(HttpStatus.NOT_FOUND, Constants.PRODUCT_MESSAGE_NOT_FOUND + id),
+					HttpStatus.NOT_FOUND);
 
 		}
 
@@ -203,8 +212,9 @@ public class ProductsController {
 		} catch (final Exception e) {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
-			return httpResponse(Constants.RESPONSE_CODE_404, HttpStatus.NOT_FOUND,
-					Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
+
+			return new ResponseEntity<>(customResponse(HttpStatus.NOT_FOUND, Constants.PRODUCT_MESSAGE_NOT_FOUND + id),
+					HttpStatus.NOT_FOUND);
 
 		}
 
@@ -224,7 +234,7 @@ public class ProductsController {
 			@ApiResponse(code = Constants.RESPONSE_CODE_400, message = Constants.RESPONSE_CODE_400_DES) })
 
 	@PutMapping(value = Constants.PATH_VARIABLE_ID, consumes = Constants.APPLICATION_JSON)
-	public @ResponseBody String updateProductPriceData(
+	public @ResponseBody Object updateProductPriceData(
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_PRODUCT, required = true) @RequestBody @Valid Products product,
 			@ApiParam(value = Constants.SWAGGER_PARAM_DES_ID, required = true) @PathVariable() long id) {
 
@@ -233,23 +243,29 @@ public class ProductsController {
 		if (existingProduct == null) {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
-			return httpResponse(Constants.RESPONSE_CODE_404, HttpStatus.NOT_FOUND,
-					Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
+
+			return new ResponseEntity<>(customResponse(HttpStatus.NOT_FOUND, Constants.PRODUCT_MESSAGE_NOT_FOUND + id),
+					HttpStatus.NOT_FOUND);
 
 		} else if (product.getId() != id) {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_ID_MISMATCH_PART_1 + id
 					+ Constants.PRODUCT_MESSAGE_ID_MISMATCH_PART_2 + product.getId());
-			return httpResponse(Constants.RESPONSE_CODE_400, HttpStatus.BAD_REQUEST,
-					Constants.PRODUCT_MESSAGE_ID_MISMATCH_PART_1 + id + Constants.PRODUCT_MESSAGE_ID_MISMATCH_PART_2
-							+ product.getId());
+
+			return new ResponseEntity<>(
+					customResponse(HttpStatus.BAD_REQUEST,
+							Constants.PRODUCT_MESSAGE_ID_MISMATCH_PART_1 + id
+									+ Constants.PRODUCT_MESSAGE_ID_MISMATCH_PART_2 + product.getId()),
+					HttpStatus.BAD_REQUEST);
 		}
 
 		final Products updatedProduct = productsService.updateProduct(existingProduct, product);
 
 		_log.info(Constants.SUCCESS + Constants.PRODUCT_MESSAGE_UPDATED + updatedProduct.getId());
-		return httpResponse(Constants.RESPONSE_CODE_200, HttpStatus.OK,
-				Constants.PRODUCT_MESSAGE_UPDATED + updatedProduct.getId());
+
+		return new ResponseEntity<>(
+				customResponse(HttpStatus.OK, Constants.PRODUCT_MESSAGE_UPDATED + updatedProduct.getId()),
+				HttpStatus.OK);
 
 	}
 
@@ -277,26 +293,29 @@ public class ProductsController {
 			productsService.delete(existingProduct);
 
 			_log.info(Constants.SUCCESS + Constants.PRODUCT_MESSAGE_DELETED + id);
-			return httpResponse(Constants.RESPONSE_CODE_200, HttpStatus.OK, Constants.PRODUCT_MESSAGE_DELETED + id);
+
+			return new ResponseEntity<>(customResponse(HttpStatus.OK, Constants.PRODUCT_MESSAGE_DELETED + id),
+					HttpStatus.OK);
 
 		} else {
 
 			_log.error(Constants.ERROR + Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
 
-			return httpResponse(Constants.RESPONSE_CODE_404, HttpStatus.NOT_FOUND,
-					Constants.PRODUCT_MESSAGE_NOT_FOUND + id);
+			return new ResponseEntity<>(customResponse(HttpStatus.NOT_FOUND, Constants.PRODUCT_MESSAGE_NOT_FOUND + id),
+					HttpStatus.NOT_FOUND);
 
 		}
 	}
 
-	private String httpResponse(int code, HttpStatus status, String message) {
+	private String customResponse(HttpStatus status, String message) {
 
-		final JSONObject httpResponse = new JSONObject();
+		final JSONObject response = new JSONObject();
 
-		httpResponse.put(Constants.CODE, code);
-		httpResponse.put(Constants.STATUS, status);
-		httpResponse.put(Constants.MESSAGE, message);
+		response.put(Constants.TIMESTAMP, LocalDateTime.now());
+		response.put(Constants.CODE, status.value());
+		response.put(Constants.STATUS, status);
+		response.put(Constants.MESSAGE, message);
 
-		return httpResponse.toString();
+		return response.toString();
 	}
 }
