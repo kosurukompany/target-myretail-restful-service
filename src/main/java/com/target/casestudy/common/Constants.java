@@ -81,7 +81,7 @@ public class Constants {
 
 	public static final String PRODUCT_MESSAGE_SIZE = "Products list returned with size: ";
 	public static final String PRODUCT_MESSAGE_EXISTS = "Product already exist and duplicates are not allowed: ";
-	public static final String PRODUCT_MESSAGE_CREATED = "Product is Successfully Created";
+	public static final String PRODUCT_MESSAGE_CREATED = "Product is Successfully Created: ";
 	public static final String PRODUCT_MESSAGE_UPDATED = "Product Successfully updated with Id: ";
 	public static final String PRODUCT_MESSAGE_DELETED = "Product Successfully deleted with Id: ";
 	public static final String PRODUCT_MESSAGE_FOUND = "Requested Product found with Id: ";
