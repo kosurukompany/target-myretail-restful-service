@@ -4,9 +4,9 @@
 
  Restful API services to send JSON response for GET request and send a GET resquest to external api and recieve JSON respose and return name of the peoduct. When PUT method requested update the product price data.
 
-In addition to that you can perform POST request to add one product at a time and DELETE request to delete a existing product.
+In addition to that you can perform POST request to add one product at a time and DELETE request to delete a existing product from MongoDB.
 
-Also there is a GET method to get all products form database. This might helpful for manual testing to see what exists in database and what not.
+Also there is a GET method to get all products from database. This might helpful for manual testing to see what exists in database and what not.
 
 
 ## Tools and Technologies Used
@@ -22,7 +22,7 @@ Swagger-ui -- 2.9.2
 Junit -- 5(Jupitor)
 Mockito -- 3.3.0
 IDE -- Eclipse
-Postman -- For manual testing
+Postman/Swagger -- API testing
 
 ```
 
@@ -95,11 +95,9 @@ Application is up and tunning on default port or port defined in /src/main/resou
 
 	For more detailed explanation on API methods please refer to Swagger documentation at {host}/swagger-ui.html (ex http://localhost:8088/swagger-ui.html)
 ```
-## Testing
+## Testing (JUnit)
 ```
 	Please refer installation and setup steps to find different procedures to run the test cases. You can find the test cases in `src/test/java/{tests}`. 
-
-	FYI... In both installation and setup when maven install run the controller test cases run automatically.
 ```
 
 ## Cloud Instance
