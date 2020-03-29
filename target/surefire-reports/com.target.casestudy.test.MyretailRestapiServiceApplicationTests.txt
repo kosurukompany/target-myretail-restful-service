@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.target.casestudy.test.MyretailRestapiServiceApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.738 s - in com.target.casestudy.test.MyretailRestapiServiceApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.292 s - in com.target.casestudy.test.MyretailRestapiServiceApplicationTests

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.target.casestudy.service.test.ProductsServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.317 s - in com.target.casestudy.service.test.ProductsServiceTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.411 s - in com.target.casestudy.service.test.ProductsServiceTest

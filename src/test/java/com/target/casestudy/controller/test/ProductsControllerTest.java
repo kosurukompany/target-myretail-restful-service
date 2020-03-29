@@ -3,6 +3,7 @@ package com.target.casestudy.controller.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
 
@@ -88,7 +89,7 @@ public class ProductsControllerTest {
 
 			final ResponseEntity<Products> response = restTemplate.postForEntity(url, product, Products.class);
 
-			assertEquals(Constants.RESPONSE_CODE_200, response.getStatusCodeValue());
+			assertEquals(Constants.RESPONSE_CODE_201, response.getStatusCodeValue());
 			assertNotNull(productsService.findById(id));
 			assertNotNull(response.getBody());
 		}
@@ -211,9 +212,7 @@ public class ProductsControllerTest {
 
 			restTemplate.delete(url);
 
-			final ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-			assertEquals(Constants.RESPONSE_CODE_404, new JSONObject(response.getBody()).get(Constants.CODE));
+			assertNull(productsService.findById(id));
 
 		}
 	}
