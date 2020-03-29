@@ -1,9 +1,0 @@
-com/target/casestudy/model/CurrentPrices.class
-com/target/casestudy/service/ProductsService.class
-com/target/casestudy/config/SecurityConfiguration.class
-com/target/casestudy/repository/ProductsRepository.class
-com/target/casestudy/controller/ProductsController.class
-com/target/casestudy/config/SwaggerConfig.class
-com/target/casestudy/MyretailRestapiServiceApplication.class
-com/target/casestudy/common/Constants.class
-com/target/casestudy/model/Products.class
