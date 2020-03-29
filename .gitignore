@@ -1,1 +1,3 @@
 /target/
+src/main/resources/instance-based.properties
+target/classes/instance-based.properties
