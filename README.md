@@ -102,6 +102,11 @@ Application is up and tunning on default port or port defined in /src/main/resou
 	FYI... In both installation and setup when maven install run the controller test cases run automatically.
 ```
 
+## Cloud Instance
+```
+API URL : https://myretail-restapi-service.herokuapp.com/v1/myretail/products/
+Swagger Documentation https://myretail-restapi-service.herokuapp.com/swagger-ui.html
+```
 ## License
 [MIT](https://github.com/kosurukompany/target-myretail-restful-service/blob/master/LICENSE)
 
