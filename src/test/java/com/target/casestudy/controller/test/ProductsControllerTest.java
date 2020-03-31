@@ -73,7 +73,7 @@ public class ProductsControllerTest {
 	public void saveProductTest() throws Exception {
 
 		final RestTemplate restTemplate = new RestTemplate();
-		final String url = commonMethods.getURL(randomPort) + Constants.ADD_URL;
+		final String url = commonMethods.getURL(randomPort);
 
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
