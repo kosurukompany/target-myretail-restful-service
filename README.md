@@ -87,7 +87,7 @@ Application is up and tunning on default port or port defined in /src/main/resou
 
 	GET(/v1/myretail/products/external/{id}?condition=nameonly) -- return requested product name from external API data based on ID
 
-	POST(/v1/myretail/products/add) -- Add a new product to database
+	POST(/v1/myretail/products) -- Add a new product to database
 
 	PUT(/v1/myretail/products/{id}) -- Required valid product data in JSON format. This method update the existing product price
 
