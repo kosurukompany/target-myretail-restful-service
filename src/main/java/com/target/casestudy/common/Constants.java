@@ -28,7 +28,6 @@ public class Constants {
 	public static final String PATH_VARIABLE_ID = "/{id}";
 	public static final String EXTERNAL_GET_URL = "/external/{id}";
 	public static final String EXTERNAL_GET_URL_FOR_TEST = "/external/";
-	public static final String ADD_URL = "/add";
 	public static final String APPLICATION_JSON = "application/json";
 
 	public static final String EXTERNAL_GET_URL_PART_1 = "https://redsky.target.com/v2/pdp/tcin/";
